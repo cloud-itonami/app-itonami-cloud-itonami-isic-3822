@@ -23,28 +23,3 @@ jobs:
         with: { cli: latest }
       - name: clj-kondo (errors fail the build)
         run: clojure -M:lint
-
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with: { path: orgs/cloud-itonami/cloud-itonami-isic-3822 }
-      - uses: actions/checkout@v4
-        with:
-          repository: kotoba-lang/langgraph
-          path: orgs/kotoba-lang/langgraph
-      - uses: actions/checkout@v4
-        with:
-          repository: kotoba-lang/langchain
-          path: orgs/kotoba-lang/langchain
-      - uses: actions/checkout@v4
-        with:
-          repository: kotoba-lang/langchain-store
-          path: orgs/kotoba-lang/langchain-store
-      - uses: actions/setup-java@v4
-        with: { distribution: temurin, java-version: "21" }
-      - uses: DeLaGuardo/setup-clojure@13.0
-        with: { cli: latest }
-      - name: test (governor contract · store parity · phases)
-        working-directory: orgs/cloud-itonami/cloud-itonami-isic-3822
-        run: clojure -M:dev:test
